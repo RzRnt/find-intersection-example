@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.github.javafaker.Faker;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -58,12 +57,31 @@ public class MainTest {
     }
 
     @Test
-    public void TestHundredWords() {
+    public void TestListOffWords() {
         Main m = new Main();
-        ArrayList<String> firstWords = m.generateWords(100000);
-        ArrayList<String> secondWords = m.generateWords(100000);
+        ArrayList<String> firstWords = m.generateWords(5000000);
+        ArrayList<String> secondWords = m.generateWords(5000000);
         ArrayList<String> actualCommonWords = m.getCommonWords(firstWords, secondWords);
         System.out.println(actualCommonWords);
+    }
+
+    @Test
+    public void TestListOfWordsHashSet() {
+        Main m = new Main();
+        ArrayList<String> firstWords = m.generateWords(5000000);
+        ArrayList<String> secondWords = m.generateWords(5000000);
+        ArrayList<String> actualCommonWords = m.getCommonWordsHashSet(firstWords, secondWords);
+        System.out.println(actualCommonWords);
+    }
+
+    @Test
+    public void TestListOfWordsHashSetSimple() {
+        Main m = new Main();
+        ArrayList<String> firstWords = new ArrayList(Arrays.asList("find", "intersection", "two", "lists"));
+        ArrayList<String> secondWords = new ArrayList<>(Arrays.asList("find", "between", "two", "lists"));
+        ArrayList<String> expectedCommonWords = new ArrayList<>(Arrays.asList("find", "lists", "two"));
+        ArrayList<String> actualCommonWords = m.getCommonWordsHashSet(firstWords, secondWords);
+        Assert.assertEquals(expectedCommonWords, actualCommonWords);
     }
 }
 
